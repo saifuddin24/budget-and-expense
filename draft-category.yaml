@@ -1,0 +1,45 @@
+controllers:
+  # Category:
+  #   index:
+  #     query: paginate:15
+  #     render: category.index with:categories
+  #   create:
+  #     render: category.create
+  #   store:
+  #     validate: category
+  #     save: category
+  #     flash: category.id
+  #     redirect: category.index
+  #   show:
+  #     render: category.show with:category
+  #   edit:
+  #     render: category.edit with:category
+  #   update:
+  #     validate: category
+  #     update: category
+  #     flash: category.id
+  #     redirect: category.index
+  #   destroy:
+  #     delete: category
+  #     redirect: category.index
+
+  CategoryTransaction:
+    create:
+      render: category.create
+    store:
+      validate: category
+      save: category
+      flash: category.id
+      redirect: category.index
+    show:
+      render: category.show with:category
+    edit:
+      render: category.edit with:category
+    update:
+      validate: category
+      update: category
+      flash: category.id
+      redirect: category.index
+    destroy:
+      delete: category
+      redirect: category.index

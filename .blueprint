@@ -1,0 +1,16 @@
+created:
+    - app/Http/Controllers/CategoryTransactionController.php
+    - tests/Feature/Http/Controllers/CategoryTransactionControllerTest.php
+    - app/Http/Requests/CategoryTransactionStoreRequest.php
+    - app/Http/Requests/CategoryTransactionUpdateRequest.php
+updated:
+    - routes/web.php
+skipped:
+    - resources/views/category/create.blade.php
+    - resources/views/category/show.blade.php
+    - resources/views/category/edit.blade.php
+models:
+    Category: { id: mediumIncrements, name: 'string:255', relationships: { hasMany: Transaction } }
+    Transaction: { id: id, title: 'string:255 comment:"particular of transaction"', account_profile_id: 'mediumInteger index unsigned foreign:account_profiles.id', category_id: 'mediumInteger index nullable unsigned default:null foreign:categories.id', budget_id: 'integer index nullable unsigned default:null foreign:budgets.id', cash_amount: 'double:10,2 default:0', cash_trx_type: 'enum:"debit","credit" nullable default:null', bank_amount: 'double:10,2 default:0', bank_trx_type: 'enum:"debit","credit" nullable default:null', created_at: 'timestamp index', deleted_at: 'timestamp nullable default:null', relationships: { belongsTo: 'Category,Budget,AccountProfile' } }
+    AccountProfile: { id: mediumIncrements, title: 'string:255', created_at: timestamp, relationships: { hasMany: Transaction } }
+    Budget: { id: increments, title: 'string:255', description: 'text nullable', amount: double, is_pined: 'tinyInteger unsigned', frequency: 'enum:"monthly","daily","weekly","yearly" nullable default:null', created_at: timestamp, updated_at: 'timestamp nullable default:null', deleted_at: 'timestamp nullable default:null', relationships: { hasMany: Transaction } }
