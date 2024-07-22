@@ -127,7 +127,20 @@ class BudgetController extends Controller
 
     public function destroy(Request $request, Budget $budget)
     {
+
+        $request->validate([
+            'delete-key' => 'required|in:"DELETE"'
+        ]);
+        
         $budget->delete();
+
+        if( $request->wantsJson() ) {
+            return response([
+                'success'=> true,
+                'message' => "Successfully deleted!",
+                'r' =>$request->all()
+            ]);
+        }
 
         return redirect()->route('budgets.index');
     }

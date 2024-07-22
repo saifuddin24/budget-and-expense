@@ -8,4 +8,7 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    server: {
+        origin: 'http://budgets-and-expenses.test'
+    }
 });

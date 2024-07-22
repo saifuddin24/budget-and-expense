@@ -38,7 +38,7 @@
     <div class="col-span-2 mb-2">
         <label class="block">Amount</label>
         <input 
-            type="number" 
+            type="text" 
             name="amount" 
             value="{{ old('amount', $budget->amount ??  '' ) }}"
             class="w-full z-10 inline-flex items-center py-2  px-4 text-gray-800 bg-white border border-gray-300 rounded-lg focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600 "  
@@ -68,3 +68,19 @@
     </div>
 
 </div>
+
+<script>
+
+
+    function windowOnLoad(){
+
+        setMathExpressionCalculator( document.querySelector(  `[name="amount"]` ) );
+
+        window.removeEventListener( 'load', windowOnLoad );
+    }
+
+    window.addEventListener('load', windowOnLoad );
+    
+    
+
+</script>

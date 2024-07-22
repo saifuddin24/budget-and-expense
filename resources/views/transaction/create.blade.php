@@ -157,4 +157,21 @@
             </div>
         </form>
     </div>
+
+    <script>
+
+        function windowOnLoad(){
+
+
+
+            setMathExpressionCalculator( document.querySelector(  `[name="cash_amount"]` ) );
+            setMathExpressionCalculator( document.querySelector(  `[name="bank_amount"]` ) );
+
+            window.removeEventListener( 'load', windowOnLoad );
+        }
+
+        window.addEventListener('load', windowOnLoad );
+        
+    </script>
+
 </x-app-layout>
