@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasTableAlias;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -10,7 +11,7 @@ use Illuminate\Support\Carbon;
 
 class Budget extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory,SoftDeletes,HasTableAlias;
 
     /**
      * The attributes that are mass assignable.
@@ -53,7 +54,9 @@ class Budget extends Model
         return $this->belongsTo(Category::class);
     }
 
-
+    public function scopeFrequency($query, $frequency){
+        $query->where('frequency', $frequency);
+    }
     
     public function total_cash_transaction( string $year_month = null){
 
