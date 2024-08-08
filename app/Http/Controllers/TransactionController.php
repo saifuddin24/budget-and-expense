@@ -21,7 +21,6 @@ class TransactionController extends Controller
     public function index(Request $request): Response|View|LengthAwarePaginator|String
     {
          
-         
         $transactions = CashTransaction::query();
         $transactions = $transactions->with('category','budget');
  

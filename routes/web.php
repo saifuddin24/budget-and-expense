@@ -14,9 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::prefix('/')->group( base_path('routes/auth.php') );
+
 Route::get('/', [DashboardController::class,'index'])->name('dashboard.index');
 
-Route::prefix('/')->group( base_path('routes/auth.php') );
+
+Route::prefix( '/dashboard' )->group( function(){
+
+    Route::get('/categories', [DashboardController::class,'categories'])->name('dashboard.categories');
+    Route::get('/budgets', [DashboardController::class,'budgets'])->name('dashboard.budgets');
+    Route::get('/overview', [DashboardController::class,'overview'])->name('dashboard.overview');
+});
+
 
 Route::resource('categories', App\Http\Controllers\CategoryController::class);
 

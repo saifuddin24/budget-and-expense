@@ -2,16 +2,17 @@
 
 namespace App\Models;
 
-use App\Models\Scopes\TransactionAccountHolderScope;
+use App\Models\Traits\AccountHolderId;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
 
 class Transaction extends Model
 {
     const UPDATED_AT = NULL;
-    use HasFactory;
+    use HasFactory, SoftDeletes, AccountHolderId;
 
     /**
      * The attributes that are mass assignable.
@@ -45,20 +46,7 @@ class Transaction extends Model
         'created_at' => 'datetime',
         'deleted_at' => 'datetime',
     ];
-
-    protected static function booted()
-    {
-        static::addGlobalScope(new TransactionAccountHolderScope);
-    }
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            $model->account_profile_id = TransactionAccountHolderScope::getAccountProfileID();
-        });
-    }
+ 
 
     public function category(): BelongsTo
     {
@@ -75,5 +63,22 @@ class Transaction extends Model
         return $this->belongsTo(AccountProfile::class);
     }
 
+    public static function getYearMonth(){
+
+        $trx_months = self::select('trx_month', 'trx_year' )->distinct()->orderBy('trx_year')->get();
+        return self::select('trx_year' )
+            ->distinct()
+            ->orderBy('trx_year')
+            ->get()
+            ->map(function($year) use($trx_months){
+                return [
+                    'year' => $year->trx_year,
+                    'months' => $trx_months->where( 'trx_year', $year->trx_year )->map(function($ym){
+                        return  $ym->trx_month;
+                    })->values(),
+                ];
+            });
+
+    }
     
 }
