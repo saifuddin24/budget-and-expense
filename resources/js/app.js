@@ -40,6 +40,7 @@ function calculateExpression( expression ){
     while( (idx = parseTree.findIndex(([n,o]) => o=='*')) != -1 ) {
         parseTree.splice(idx,1)
     }
+    //Commit testing
 
     parseTree.forEach(function([number, operator],index){
         if( parseTree[index+1]  ) {
